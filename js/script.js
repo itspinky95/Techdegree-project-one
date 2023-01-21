@@ -7,9 +7,10 @@ project 1 - A Random Quote Generator
   // Check the "Project Resources" section of the project instructions
   // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
 
-/*** 
+  /*** 
  * `quotes` array 
 ***/
+
 const quotes = [
   {quote: "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.", source: 'Dr. Seuss', tag: 'Author' },
   {quote: "Never let the fear of striking out keep you from playing the game.", source: 'Babe Ruth', tag: 'Baseball Player' },
@@ -21,19 +22,51 @@ const quotes = [
   {quote: "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.", source: 'Maya Angelou', tag: 'Menmoirist'}
 ];
 
+// console.log(quotes)
 
 /***
  * `getRandomQuote` function
 ***/
+function getRandomQuote() {
+  let randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  return randomQuote;
+};
 
-
+/*
+ * setting colour of background
+*/
+const colors = ['red', 'blue', 'violet', 'hotpink', 'brown', 'purple', 'green', 'orange', 'gray', 'babyblue'];
 
 /***
  * `printQuote` function
 ***/
 
+function printQuote() {
+  document.body.style.backgroundColor = getRandomColor();
+  let quote = getRandomQuote();
+  let html = `<p class="quote">${quote.quote}</p>
+   <p class="source">${quote.source}`
+  if (quote.citation !== undefined) {
+    html += `<span class ="citation">${quote.citation}</span>`;
+  }
+  if (quote.year !== undefined) {
+    html += `<span class = "year">${quote.year}</span>`;
+  }
+  if (quote.tag !== undefined) {
+    html += `<span class = "tag">, ${quote.tag}</span>`;
+  }
+  `</p>`
 
+  return (document.getElementById("quote-box").innerHTML = html);
+}
 
+// generates a random color from the colors array on button click
+
+function getRandomColor() {
+  return colors[Math.floor(Math.random() * 9)]
+}
+// interval to rotate between color and quotes, set for five seconds
+setInterval(printQuote, 15000);
 /***
  * click event listener for the print quote button
  * DO NOT CHANGE THE CODE BELOW!!
